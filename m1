@@ -1,0 +1,102 @@
+class menu():
+
+    def __init__(self, eats, drinks):
+        self.eats = eats
+        self.drinks = drinks
+
+    def anons(self):
+        return "Welcome to KIRAN'S"
+
+class eats(menu):
+    def __init__(self, aperatifler, arasicaklar, yemekler, chefsign, tatlilar):
+        self.aperatifler =  aperatifler
+        self.arasicaklar = arasicaklar
+        self.yemekler = yemekler
+        self.chefsign = chefsign
+        self.tatlilar = tatlilar
+
+aperatifler = {
+    'Sigara Böreği' : 200,
+    'Patates Kızartması' : 160
+}
+arasicaklar = {
+    'Ahtapot Beğendi' : 600,
+    'Levrek Simit' : 450
+}
+yemekler = {
+    'Lokum Bonfile' : 900,
+    'Tavuk Sote' : 250,
+    'Kuru Fasulye' : 120
+}
+chefsign = {
+    'Mürdüm Erikli Dana Bonfile' : 850,
+    'Şefin Elleri' : 950
+}
+tatlilar = {
+    'Kemal Paşa' : 150,
+    'Cheesecake' : 250,
+    'Tulumba' : 100
+}
+eatsm = eats(aperatifler, arasicaklar, yemekler, chefsign, tatlilar)
+
+class drinks(menu):
+    def __init__(self, sicak_icecekeler, soguk_icecekeler, alkollu):
+        self.sicak_icecekler = sicak_icecekeler
+        self.soguk_icecekeler = soguk_icecekeler
+        self.alkollu = alkollu
+
+sicak_icecekler = {
+    'Çay': 60,
+    'Süt' : 80,
+    'Türk Kahvesi' : 80,
+    'Filtre Kahve' : 100
+}
+soguk_icecekler = {
+    'Meyve Suyu': 65,
+    'Limonata': 70,
+    'Soğuk Kahve': 80,
+    'Soğuk Çay': 65
+}
+alkollu = {
+    'Bira' : 150,
+    'Rakı' : 800,
+    'Şarap' : 300,
+    'Viski' : 900
+}
+drinksm = drinks(sicak_icecekler, soguk_icecekler, alkollu)
+
+menum = menu(eatsm, drinksm)
+print(menum.anons())
+adisyon = []
+toplam = 0
+
+while True:
+    secim = input("Sipariş vermek istediğiniz ürünü yazın (çıkmak için 'q'): ")
+
+    if secim.lower() == "q":
+        break
+
+    tum_menu = {
+        **menum.eats.aperatifler,
+        **menum.eats.arasicaklar,
+        **menum.eats.yemekler,
+        **menum.eats.chefsign,
+        **menum.eats.tatlilar,
+        **menum.drinks.sicak_icecekler,
+        **menum.drinks.soguk_icecekeler,
+        **menum.drinks.alkollu
+    }
+
+    if secim in tum_menu:
+        fiyat = tum_menu[secim]
+        adisyon.append((secim, fiyat))
+        toplam += fiyat
+        print(f"✅ {secim} eklendi ({fiyat} TL)")
+    else:
+        print("⚠️ Bu ürün menüde yok.")
+
+
+print("\n---- ADİSYON ----")
+for urun, fiyat in adisyon:
+    print(f"{urun}: {fiyat} TL")
+print(f"Toplam: {toplam} TL")
