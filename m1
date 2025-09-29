@@ -91,9 +91,9 @@ while True:
         fiyat = tum_menu[secim]
         adisyon.append((secim, fiyat))
         toplam += fiyat
-        print(f"✅ {secim} eklendi ({fiyat} TL)")
+        print(f"{secim} eklendi ({fiyat} TL)")
     else:
-        print("⚠️ Bu ürün menüde yok.")
+        print("Bu ürün menüde yok.")
 
 
 print("\n---- ADİSYON ----")
