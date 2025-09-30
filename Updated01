@@ -1,0 +1,100 @@
+class Menu:
+    def __init__(self, eats, drinks):
+        self.eats = eats
+        self.drinks = drinks
+
+    def anons(self):
+        return "Welcome to KIRAN'S"
+
+
+class Eats:
+    def __init__(self, aperatifler, arasicaklar, yemekler, chefsign, tatlilar):
+        self.aperatifler = aperatifler
+        self.arasicaklar = arasicaklar
+        self.yemekler = yemekler
+        self.chefsign = chefsign
+        self.tatlilar = tatlilar
+
+
+class Drinks:
+    def __init__(self, sicak_icecekler, soguk_icecekler, alkollu):
+        self.sicak_icecekler = sicak_icecekler
+        self.soguk_icecekler = soguk_icecekler
+        self.alkollu = alkollu
+
+
+
+aperatifler = {'Sigara Böreği': 200, 'Patates Kızartması': 160}
+arasicaklar = {'Ahtapot Beğendi': 600, 'Levrek Simit': 450}
+yemekler = {'Lokum Bonfile': 900, 'Tavuk Sote': 250, 'Kuru Fasulye': 120}
+chefsign = {'Mürdüm Erikli Dana Bonfile': 850, 'Şefin Elleri': 950}
+tatlilar = {'Kemal Paşa': 150, 'Cheesecake': 250, 'Tulumba': 100}
+
+sicak_icecekler = {'Çay': 60, 'Süt': 80, 'Türk Kahvesi': 80, 'Filtre Kahve': 100}
+soguk_icecekler = {'Meyve Suyu': 65, 'Limonata': 70, 'Soğuk Kahve': 80, 'Soğuk Çay': 65}
+alkollu = {'Bira': 150, 'Rakı': 800, 'Şarap': 300, 'Viski': 900}
+
+
+eats_obj = Eats(aperatifler, arasicaklar, yemekler, chefsign, tatlilar)
+drinks_obj = Drinks(sicak_icecekler, soguk_icecekler, alkollu)
+menu_obj = Menu(eats_obj, drinks_obj)
+
+
+kategoriler = {
+    "Aperatifler": menu_obj.eats.aperatifler,
+    "Ara Sıcaklar": menu_obj.eats.arasicaklar,
+    "Yemekler": menu_obj.eats.yemekler,
+    "Chef's Special": menu_obj.eats.chefsign,
+    "Tatlılar": menu_obj.eats.tatlilar,
+    "Sıcak İçecekler": menu_obj.drinks.sicak_icecekler,
+    "Soğuk İçecekler": menu_obj.drinks.soguk_icecekler,
+    "Alkollü İçecekler": menu_obj.drinks.alkollu
+}
+
+adisyon = []
+toplam = 0
+
+print(menu_obj.anons())
+
+while True:
+    print("\n--- Kategoriler ---")
+    for i, kategori in enumerate(kategoriler.keys(), 1):
+        print(f"{i}. {kategori}")
+    print("0. Çıkış ve adisyonu göster")
+
+    kategori_secim = input("Kategori numarasını seçin: ")
+    if kategori_secim == "0":
+        break
+
+    try:
+        kategori_secim = int(kategori_secim) - 1
+        kategori_adi = list(kategoriler.keys())[kategori_secim]
+        urunler = kategoriler[kategori_adi]
+
+        while True:
+            print(f"\n--- {kategori_adi} ---")
+            for i, (urun, fiyat) in enumerate(urunler.items(), 1):
+                print(f"{i}. {urun} - {fiyat} TL")
+            print("0. Bir önceki menüye dön")
+
+            urun_secim = input("Ürün numarasını seçin: ")
+            if urun_secim == "0":
+                break
+
+            try:
+                urun_secim = int(urun_secim) - 1
+                urun_adi = list(urunler.keys())[urun_secim]
+                urun_fiyat = urunler[urun_adi]
+                adisyon.append((urun_adi, urun_fiyat))
+                toplam += urun_fiyat
+                print(f"✅ {urun_adi} eklendi ({urun_fiyat} TL)")
+            except (ValueError, IndexError):
+                print("⚠️ Geçersiz ürün seçimi, tekrar deneyin.")
+
+    except (ValueError, IndexError):
+        print("⚠️ Geçersiz kategori seçimi, tekrar deneyin.")
+
+print("\n---- ADİSYON ----")
+for urun, fiyat in adisyon:
+    print(f"{urun}: {fiyat} TL")
+print(f"Toplam: {toplam} TL")
